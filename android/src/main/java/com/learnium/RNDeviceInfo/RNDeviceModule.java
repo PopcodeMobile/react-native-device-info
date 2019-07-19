@@ -237,7 +237,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
     String ipAddress = Formatter.formatIpAddress(getWifiInfo().getIpAddress());
     p.resolve(ipAddress);
   }
- 
+
   @ReactMethod
   public void getCameraPresence(Promise p) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -249,6 +249,17 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
       }
     } else {
       p.resolve(Camera.getNumberOfCameras()> 0);
+    }
+  }
+
+  @ReactMethod
+  public void getIMEI(Promise promise) {
+    try {
+      TelephonyManager tm = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+      final String imei = tm.getDeviceId();
+      promise.resolve(imei != null ? imei : "");
+    } catch (Exception e) {
+      promise.resolve("");
     }
   }
 
@@ -394,7 +405,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSystemAvailableFeatures(Promise p) {
     final FeatureInfo[] featureList = this.reactContext.getApplicationContext().getPackageManager().getSystemAvailableFeatures();
-    
+
     WritableArray promiseArray = Arguments.createArray();
     for (FeatureInfo f : featureList) {
       if (f.name != null) {

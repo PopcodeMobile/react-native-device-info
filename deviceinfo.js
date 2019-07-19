@@ -360,6 +360,9 @@ export default {
   getCameraPresence: function() {
     return RNDeviceInfo.getCameraPresence();
   },
+  getIMEI: function() {
+    return RNDeviceInfo.getIMEI();
+  },
   getMACAddress: function() {
     return RNDeviceInfo.getMacAddress();
   },

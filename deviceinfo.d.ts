@@ -65,6 +65,7 @@ declare const _default: {
   getSerialNumber: () => string;
   getIPAddress: () => Promise<string>;
   getCameraPresence: () => Promise<boolean>;
+  getIMEI(): Promise<string>;
   getMACAddress: () => Promise<string>;
   getPhoneNumber: () => string;
   getAPILevel: () => number;
